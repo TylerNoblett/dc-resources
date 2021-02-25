@@ -1,0 +1,6 @@
+[
+  {"type": "breakfast", "regularity": "weekly", "name": "National Community Church"},
+  {"type": "dinner", "regularity": "1st and 3rd Sat of the month", "name": "Miriam's Kitchen (Breakfast)"},
+  {"type": "groceries", "regularity": "2nd Tue of the month", "name": "Miriam's Kitchen (Dinner)"},
+  {"type": "groceries", "regularity": "weekly", "name": "Spanish Catholic Center"}
+]
