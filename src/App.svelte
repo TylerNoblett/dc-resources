@@ -7,18 +7,18 @@
 ]
 	// give selector objects "all" that is selected by default
   
-let flavours = [];
-let stimes = [];
-let chosenQuadrants = [];
+let types = [];
+let regularity = [];
+let quadrants = [];
 
-let menu = [
+let typeOptions = [
 	'all',
   'groceries',
   'dinner',
   'breakfast'
 ];
 
-const regularity = [
+const regularityOptions = [
 	"all",
   "weekly",
   "biweekly",
@@ -27,7 +27,7 @@ const regularity = [
   "2nd and 4th Wed of the month",
 ]; 
 
-const quadrant = [
+const quadrantOptions = [
 	"all",
   "NW",
   "NE",
@@ -35,27 +35,27 @@ const quadrant = [
   "SW"
 ]
 
-function join(flavours, stimes, chosenQuadrants) {
-  if (!flavours.length && !stimes.length && !chosenQuadrants){
+function join(types, regularity, quadrants) {
+  if (!types.length && !regularity.length && !quadrants){
     return data.map(item => item.name)
   } else {
     return data
       .filter(item => {
-              if (flavours.length){
-								if(flavours.includes('all')){return item}
-                if(flavours.includes(item.type)){return item}
+              if (types.length){
+								if(types.includes('all')){return item}
+                if(types.includes(item.type)){return item}
               } else {return item}
     		})
 			.filter(item => {
-							if (stimes.length){
-								if(stimes.includes('all')){return item}
-                if(stimes.includes(item.regularity)){return item}
+							if (regularity.length){
+								if(regularity.includes('all')){return item}
+                if(regularity.includes(item.regularity)){return item}
               } else {return item}
 		})
 		.filter(item => {
-							if (chosenQuadrants.length){
-								if(chosenQuadrants.includes('all')){return item}
-                if(chosenQuadrants.includes(item.quadrant)){return item}
+							if (quadrants.length){
+								if(quadrants.includes('all')){return item}
+                if(quadrants.includes(item.quadrant)){return item}
               } else {return item}
 		})
 			.map(item => item.name)
@@ -65,34 +65,34 @@ function join(flavours, stimes, chosenQuadrants) {
 </script>
 
 
-<h2>Flavours</h2>
+<h2>types</h2>
 
-<select multiple bind:value={flavours} >//selected="all">
-{#each menu as flavour}
+<select multiple bind:value={types} >//selected="all">
+{#each typeOptions as flavour}
   <option value={flavour}>
     {flavour}
   </option>
 {/each}
 </select>
 
-<select multiple bind:value={stimes}>
-{#each regularity as time}
+<select multiple bind:value={regularity}>
+{#each regularityOptions as time}
   <option value={time}>
     {time}
   </option>
 {/each}
 </select>
 
-<select multiple bind:value={chosenQuadrants}>
-{#each quadrant as thing}
+<select multiple bind:value={quadrants}>
+{#each quadrantOptions as thing}
   <option value={thing}>
     {thing}
   </option>
 {/each}
 </select>
 <p>
-{console.log("FLAV", flavours), console.log("TIME", stimes)}
+{console.log("FLAV", types), console.log("TIME", regularity)}
 </p>
 <br>
-{join(flavours, stimes, chosenQuadrants)}
+{join(types, regularity, quadrants)}
 
