@@ -36,9 +36,6 @@ const quadrantOptions = [
 ]
 
 function join(types, regularity, quadrants) {
-  if (!types.length && !regularity.length && !quadrants){
-    return data.map(item => item.name)
-  } else {
     return data
       .filter(item => {
               if (types.length){
@@ -59,7 +56,7 @@ function join(types, regularity, quadrants) {
               } else {return item}
 		})
 			.map(item => item.name)
-  }
+
 }
 
 </script>
@@ -68,9 +65,9 @@ function join(types, regularity, quadrants) {
 <h2>types</h2>
 
 <select multiple bind:value={types} >//selected="all">
-{#each typeOptions as flavour}
-  <option value={flavour}>
-    {flavour}
+{#each typeOptions as type}
+  <option value={type}>
+    {type}
   </option>
 {/each}
 </select>
@@ -84,9 +81,9 @@ function join(types, regularity, quadrants) {
 </select>
 
 <select multiple bind:value={quadrants}>
-{#each quadrantOptions as thing}
-  <option value={thing}>
-    {thing}
+{#each quadrantOptions as quad}
+  <option value={quad}>
+    {quad}
   </option>
 {/each}
 </select>
