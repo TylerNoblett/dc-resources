@@ -1,73 +1,101 @@
 <script>
-	//import * as data from './info.json'
-	let data = [
-		{"type": "breakfast", "name": "National Community Church"},
-		{"type": "dinner", "name": "Miriam's Kitchen (Breakfast)"},
-		{"type": "groceries", "name": "Miriam's Kitchen (Dinner)"},
-		{"type": "groceries", "name": "Spanish Catholic Center"}
-	]
+  let data = [
+  {"type": "breakfast", "regularity": "weekly", "name": "National Community Church", "quadrant": "NW"},
+  {"type": "breakfast", "regularity": "1st and 3rd Sat of the month", "name": "Miriam's Kitchen (Breakfast)", "quadrant": "SE"},
+  {"type": "dinner", "regularity": "2nd Tue of the month", "name": "Miriam's Kitchen (Dinner)", "quadrant": "SE"},
+  {"type": "groceries", "regularity": "weekly", "name": "Spanish Catholic Center", "quadrant": "SW"}
+]
+	// give selector objects "all" that is selected by default
+  
+let flavours = [];
+let stimes = [];
+let chosenQuadrants = [];
 
-	let options = [];
+let menu = [
+	'all',
+  'groceries',
+  'dinner',
+  'breakfast'
+];
 
-	const type = [
-		'breakfast',
-		'dinner',
-		'groceries',
-		'weekly',
-	];
+const regularity = [
+  "weekly",
+  "biweekly",
+  "1st and 3rd Sat of the month",
+  "2nd Tue of the month",
+  "2nd and 4th Wed of the month",
+]; 
 
-	const dayOfweek = [
-		'sunday',
-		'monday',
-		'tuesday',
-		'wednesday',
-		'thursday',
-		'friday',
-		'saturday'
-	]
+const quadrant = [
+  "NW",
+  "NE",
+  "SE",
+  "SW"
+]
 
-	// const regularity = [
-	// 	"weekly",
-	// 	"biweekly",
-	// 	"1st and 3rd Sat of the month",
-	// 	"2nd Tue of the month",
-	// 	"2nd and 4th Wed of the month",
-	// 	"2nd Tue of the month",
-	// ]; 
+function join(flavours, stimes, chosenQuadrants) {
+  if (!flavours.length && !stimes.length && !chosenQuadrants){
+    return data.map(item => item.name)
+  } else {
+    return data
+// 				.filter(item => flavours.includes(item.type))
+// 				.filter(item => stimes.includes(item.regularity))
+// 				.filter(item => chosenQuadrants.includes(item.quadrant))
+      .filter(item => {
+              if (flavours.length){
+								if(flavours.includes('all')){return item}
+                if(flavours.includes(item.type)){return item}
+              } else {return item}
+              //&& stimes.includes(item.regularity)
+              //&& chosenQuadrants.includes(item.quadrant)
+    		})
+			.filter(item => {
+							if (stimes.length){
+								if(stimes.includes('all')){return item}
+                if(stimes.includes(item.regularity)){return item}
+              } else {return item}
+		})
+		.filter(item => {
+							if (chosenQuadrants.length){
+								if(chosenQuadrants.includes('all')){return item}
+                if(chosenQuadrants.includes(item.quadrant)){return item}
+              } else {return item}
+		})
+			.map(item => item.name)
+  }
+}
 
-	// const quadrant = [
-	// 	"NW",
-	// 	"NE",
-	// 	"SE",
-	// 	"SW"
-	// ]
-
-	// const startTime = []
-	// const endTime = []
-	// const ward = [1, 2, 3, 4, 6]
-	
-	function join(options) {
-		if (options.length === 0) return data.map(resource => ` ${resource.name}`)
-		return data
-			.filter(resource => 
-				options.includes(resource.type)
-				&& options.includes(resource.dayOfweek)
-			)
-			.map(resource => ` ${resource.name}`)
-	}
 </script>
 
 
-<h2>options</h2>
+<h2>Flavours</h2>
 
-<select multiple bind:value={options}>
-	{#each type as option}
-		<option value={option}>
-			{option}
-		</option>
-	{/each}
+<select multiple bind:value={flavours} >//selected="all">
+{#each menu as flavour}
+  <option value={flavour}>
+    {flavour}
+  </option>
+{/each}
 </select>
 
-	<p>
-		{join(options)}
-	</p>
+<select multiple bind:value={stimes}>
+{#each regularity as time}
+  <option value={time}>
+    {time}
+  </option>
+{/each}
+</select>
+
+<select multiple bind:value={chosenQuadrants}>
+{#each quadrant as thing}
+  <option value={thing}>
+    {thing}
+  </option>
+{/each}
+</select>
+<p>
+{console.log("FLAV", flavours), console.log("TIME", stimes)}
+</p>
+<br>
+{join(flavours, stimes, chosenQuadrants)}
+
