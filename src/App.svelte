@@ -19,6 +19,7 @@ let menu = [
 ];
 
 const regularity = [
+	"all",
   "weekly",
   "biweekly",
   "1st and 3rd Sat of the month",
@@ -27,6 +28,7 @@ const regularity = [
 ]; 
 
 const quadrant = [
+	"all",
   "NW",
   "NE",
   "SE",
@@ -38,16 +40,11 @@ function join(flavours, stimes, chosenQuadrants) {
     return data.map(item => item.name)
   } else {
     return data
-// 				.filter(item => flavours.includes(item.type))
-// 				.filter(item => stimes.includes(item.regularity))
-// 				.filter(item => chosenQuadrants.includes(item.quadrant))
       .filter(item => {
               if (flavours.length){
 								if(flavours.includes('all')){return item}
                 if(flavours.includes(item.type)){return item}
               } else {return item}
-              //&& stimes.includes(item.regularity)
-              //&& chosenQuadrants.includes(item.quadrant)
     		})
 			.filter(item => {
 							if (stimes.length){
