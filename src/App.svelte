@@ -7,9 +7,9 @@
 ]
 	// give selector objects "all" that is selected by default
   
-let types = [];
-let regularity = [];
-let quadrants = [];
+let types = ['all'];
+let regularity = ['all'];
+let quadrants = ['all'];
 
 let typeOptions = [
 	'all',
@@ -41,19 +41,19 @@ function join(types, regularity, quadrants) {
               if (types.length){
 								if(types.includes('all')){return item}
                 if(types.includes(item.type)){return item}
-              } else {return item}
+              }
     		})
 			.filter(item => {
 							if (regularity.length){
 								if(regularity.includes('all')){return item}
                 if(regularity.includes(item.regularity)){return item}
-              } else {return item}
+              }
 		})
 		.filter(item => {
 							if (quadrants.length){
 								if(quadrants.includes('all')){return item}
                 if(quadrants.includes(item.quadrant)){return item}
-              } else {return item}
+              }
 		})
 			.map(item => item.name)
 
@@ -66,7 +66,7 @@ function join(types, regularity, quadrants) {
 
 <select multiple bind:value={types} >//selected="all">
 {#each typeOptions as type}
-  <option value={type}>
+  <option selected value={type}>
     {type}
   </option>
 {/each}
@@ -74,7 +74,7 @@ function join(types, regularity, quadrants) {
 
 <select multiple bind:value={regularity}>
 {#each regularityOptions as time}
-  <option value={time}>
+  <option selected value={time}>
     {time}
   </option>
 {/each}
@@ -87,9 +87,7 @@ function join(types, regularity, quadrants) {
   </option>
 {/each}
 </select>
-<p>
 {console.log("FLAV", types), console.log("TIME", regularity)}
-</p>
 <br>
 {join(types, regularity, quadrants)}
 
