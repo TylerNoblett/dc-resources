@@ -7,7 +7,6 @@
 ]
 	
 	let displayData = data;
-	// give selector objects "all" that is selected by default
   
 let types = ['all'];
 let regularity = ['all'];
@@ -80,9 +79,9 @@ function join(types, regularity, quadrants, wards, days) {
 		})
 	.filter(item => {
 					const sharedDates = days.map(day => item.days.find(d => d === day))
-					console.log("SHARED", sharedDates)
 								if(days.includes('all')){return item}
-                if(sharedDates.length){return item}
+								// fix this hack
+                if(sharedDates[0] !== undefined){return item}
 		})
 }
 
