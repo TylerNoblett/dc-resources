@@ -50,7 +50,7 @@
 				region: entry.gsx$region.$t,
 				location: entry.gsx$location.$t,
 				restrictions: entry.gsx$restrictions.$t,
-				eligibilitylimitations: entry.gsx$eligibilitylimitations.$t,
+				eligibility: entry.gsx$eligibilitylimitations.$t,
 				website: entry.gsx$website.$t,
 				contact: entry.gsx$contact.$t,
 				contact2: entry.gsx$contact2.$t,
@@ -194,14 +194,18 @@ function join(types, regularity, quadrants, wards, days) {
 {#if data.length}
 	<ul>
 		{#each displayData as datum}
-		<li>{datum.name}</li>
-		<p>{datum.type}</p>
-		<p>{datum.regularity}</p>
+		<h3>{datum.name}</h3>
+		<p>{datum.regularity} {datum.type} - {datum.days}</p>
+		<p></p>
 	<!-- 		{#each datum.dates as date} -->
-		<p>{datum.days}</p>
+		<p></p>
 	<!-- 		{/each} -->
-		<p>{datum.quadrant} DC</p>
-		<p>Ward {datum.ward}</p>
+		<p>{datum.quadrant} DC - Ward {datum.ward}</p>
+		<p>{datum.location}</p>
+		<p>{datum.region} </p>
+		<!-- only show restrcitnos and eligibility if not noo -->
+		<p>Restrictions? {datum.restrictions} - {datum.eligibility}</p>
+		<p>{datum.website} {datum.contact} {datum.contact2}</p>
 	{/each}
 	</ul>
 {:else}
