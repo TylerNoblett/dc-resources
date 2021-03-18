@@ -23,6 +23,10 @@
 	const dayKeys = Object.keys(dayMap);
 	const baseName = "gsx$";
 
+	function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 	onMount(async () => {
 		console.log("HERE")
 		const res = await fetch('https://spreadsheets.google.com/feeds/list/1FF3R6I3sbzWukdiBP9U6XYO1qXthMer8Lz0GObAyKsc/od6/public/values?alt=json');
@@ -44,7 +48,7 @@
 				days: days,
 				start: entry.gsx$start.$t,
 				end: entry.gsx$end.$t,
-				regularity: entry.gsx$regularity.$t,
+				regularity: capitalizeFirstLetter(entry.gsx$regularity.$t),
 				quadrant: entry.gsx$quadrant.$t,
 				ward: entry.gsx$ward.$t,
 				region: entry.gsx$region.$t,
@@ -64,14 +68,14 @@
 	
 	// displayData = displayData;
   
-let types = ['all'];
-let regularity = ['all'];
-let quadrants = ['all'];
-let wards = ['all'];
-let days = ['all'];
+let types = ['All'];
+let regularity = ['All'];
+let quadrants = ['All'];
+let wards = ['All'];
+let days = ['All'];
 
 let typeOptions = [
-	'all',
+	'All',
   'Groceries',
 	'Dinner',
 	'Lunch',
@@ -80,16 +84,16 @@ let typeOptions = [
 ];
 
 const regularityOptions = [
-	"all",
-  "weekly",
-  "biweekly",
+	"All",
+  "Weekly",
+  "Biweekly",
   "1st and 3rd Sat of the month",
   "2nd Tue of the month",
   "2nd and 4th Wed of the month",
 ]; 
 
 const quadrantOptions = [
-	"all",
+	"All",
   "NW",
   "NE",
   "SE",
@@ -97,7 +101,7 @@ const quadrantOptions = [
 ];
 	
 const wardOptions = [
-	"all",
+	"All",
 	1,
 	2,
 	3,
@@ -106,7 +110,7 @@ const wardOptions = [
 ]
 
 const dayOptions =[
-	"all",
+	"All",
 	"Mon",
 	"Tues",
 	"Wed",
@@ -119,24 +123,24 @@ const dayOptions =[
 function join(types, regularity, quadrants, wards, days) {
 	displayData = data
       .filter(item => {
-								if(types.includes('all')){return item}
+								if(types.includes('All')){return item}
                 if(types.includes(item.type)){return item}
     		})
 			.filter(item => {
-								if(regularity.includes('all')){return item}
+								if(regularity.includes('All')){return item}
                 if(regularity.includes(item.regularity)){return item}
 		})
 		.filter(item => {
-								if(quadrants.includes('all')){return item}
+								if(quadrants.includes('All')){return item}
                 if(quadrants.includes(item.quadrant)){return item}
 		})
 	.filter(item => {
-								if(wards.includes('all')){return item}
+								if(wards.includes('All')){return item}
                 if(wards.includes(item.ward)){return item}
 		})
 	.filter(item => {
 					const sharedDates = days.map(day => item.days.find(d => d === day))
-								if(days.includes('all')){return item}
+								if(days.includes('All')){return item}
 								// fix this hack
                 if(sharedDates[0] !== undefined){return item}
 		})
@@ -195,17 +199,17 @@ function join(types, regularity, quadrants, wards, days) {
 	<ul>
 		{#each displayData as datum}
 		<h3>{datum.name}</h3>
-		<p>{datum.regularity} {datum.type} - {datum.days}</p>
+		<p>📆 {datum.regularity} {datum.type} - {datum.days}</p>
 		<p></p>
 	<!-- 		{#each datum.dates as date} -->
 		<p></p>
 	<!-- 		{/each} -->
-		<p>{datum.quadrant} DC - Ward {datum.ward}</p>
-		<p>{datum.location}</p>
-		<p>{datum.region} </p>
+		<p>🗺 {datum.quadrant} DC - Ward {datum.ward}</p>
+		<p>🏢 {datum.location}</p>
+		<p>❓ {datum.region} </p>
 		<!-- only show restrcitnos and eligibility if not noo -->
-		<p>Restrictions? {datum.restrictions} - {datum.eligibility}</p>
-		<p>{datum.website} {datum.contact} {datum.contact2}</p>
+		<p>🚫 Restrictions? {datum.restrictions} - {datum.eligibility}</p>
+		<p>📞 {datum.website} {datum.contact} {datum.contact2}</p>
 	{/each}
 	</ul>
 {:else}
