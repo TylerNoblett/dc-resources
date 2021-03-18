@@ -149,7 +149,7 @@ function join(types, regularity, quadrants, wards, days) {
 </script>
 
 
-<h2>Resources</h2>
+<h2>DC Resources 🇺🇸</h2>
 
 <select multiple bind:value={types} on:click={join(types, regularity, quadrants, wards, days)}>
 {#each typeOptions as type}
@@ -206,9 +206,9 @@ function join(types, regularity, quadrants, wards, days) {
 			<p></p>
 		<!-- 		{/each} -->
 			{#if datum.ward}
-				<p>🗺 {datum.quadrant} DC - Ward {datum.ward}</p>
+				<p>🏛 {datum.quadrant} DC - Ward {datum.ward}</p>
 			{:else}
-				<p>🗺 {datum.quadrant} DC</p>
+				<p>🏛 {datum.quadrant} DC</p>
 			{/if}
 			{#if datum.region}
 				<p>🏢 {datum.location} ({datum.region})</p>
