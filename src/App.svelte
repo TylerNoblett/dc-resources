@@ -1,12 +1,41 @@
 <script>
-  let data = [
-  {"type": "breakfast", "regularity": "weekly", "name": "National Community Church", "quadrant": "NW", "ward": 3, "days":["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"]},
-  {"type": "breakfast", "regularity": "1st and 3rd Sat of the month", "name": "Miriam's Kitchen (Breakfast)", "quadrant": "SE", "ward": 4, "days":["Mon", "Tues", "Wed", "Thurs", "Fri"]},
-  {"type": "dinner", "regularity": "2nd Tue of the month", "name": "Miriam's Kitchen (Dinner)", "quadrant": "SE", "ward": 6, "days":["Mon", "Wed", "Fri"]},
-  {"type": "groceries", "regularity": "weekly", "name": "Spanish Catholic Center", "quadrant": "SW", "ward": 1,  "days":["Fri"]}
-]
+	import { onMount } from 'svelte';
+
+	//let data = [
+  //{"type": "breakfast", "regularity": "weekly", "name": "National Community Church", "quadrant": "NW", "ward": 3, "days":["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"]},
+  //{"type": "breakfast", "regularity": "1st and 3rd Sat of the month", "name": "Miriam's Kitchen (Breakfast)", "quadrant": "SE", "ward": 4, "days":["Mon", "Tues", "Wed", "Thurs", "Fri"]},
+  //{"type": "dinner", "regularity": "2nd Tue of the month", "name": "Miriam's Kitchen (Dinner)", "quadrant": "SE", "ward": 6, "days":["Mon", "Wed", "Fri"]},
+  //{"type": "groceries", "regularity": "weekly", "name": "Spanish Catholic Center", "quadrant": "SW", "ward": 1,  "days":["Fri"]}
+	//]
+	let displayData = [];
+	let JSONifiedData;
+	onMount(async () => {
+		console.log("HERE")
+		const res = await fetch('https://spreadsheets.google.com/feeds/list/1FF3R6I3sbzWukdiBP9U6XYO1qXthMer8Lz0GObAyKsc/od6/public/values?alt=json');
+		JSONifiedData = await res.json();
+		displayData = JSONifiedData.feed.entry.map(entry => {
+			return { 
+				name: entry.gsx$name.$t,
+				type: entry.gsx$type.$t,
+				start: entry.gsx$start.$t,
+				end: entry.gsx$end.$t,
+				regularity: entry.gsx$regularity.$t,
+				quadrant: entry.gsx$quadrant.$t,
+				ward: entry.gsx$ward.$t,
+				region: entry.gsx$region.$t,
+				location: entry.gsx$location.$t,
+				restrictions: entry.gsx$restrictions.$t,
+				eligibilitylimitations: entry.gsx$eligibilitylimitations.$t,
+				website: entry.gsx$website.$t,
+				contact: entry.gsx$contact.$t,
+				contact2: entry.gsx$contact2.$t,
+				//notes: entry.gsx$notese.gquality.$t
+			}
+		});
+	});
+  
 	
-	let displayData = data;
+	displayData = displayData;
   
 let types = ['all'];
 let regularity = ['all'];
@@ -134,6 +163,7 @@ function join(types, regularity, quadrants, wards, days) {
 <h1>
 	Results
 </h1>
+<h3>{displayData.length ? displayData[0].name: "something else"}</h3>
 <ul>
 	{#each displayData as datum}
 	<li>{datum.name}</li>
