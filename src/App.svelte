@@ -149,8 +149,7 @@ function join(types, regularity, quadrants, wards, days) {
 </script>
 
 
-<h2>DC Resources 🇺🇸</h2>
-
+<h1>DC Resources 🇺🇸</h1>
 <select multiple bind:value={types} on:click={join(types, regularity, quadrants, wards, days)}>
 {#each typeOptions as type}
   <option selected value={type}>
@@ -191,16 +190,16 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<br>
-<h1>
-	Results
-</h1>
 {#if data.length}
 	<ul>
 		{#each displayData as datum}
 		<h3>{datum.name}</h3>
 		<div class="resource">
-			<p>📆 {datum.regularity} {datum.type} ({datum.days})</p>
+			{#if datum.regularity[0] >= '0' && datum.regularity[0] <= '9'}
+				<p>📆 {datum.regularity} {datum.type}</p>
+			{:else}
+				<p>📆 {datum.regularity} {datum.type} ({datum.days})</p>
+			{/if}
 			<p></p>
 		<!-- 		{#each datum.dates as date} -->
 			<p></p>
