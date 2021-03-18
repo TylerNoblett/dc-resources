@@ -61,3 +61,12 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+
+h3 {
+	margin-left: -20px;
+}
+
+.resource {
+	background-color: #F4F8FE;
+	width: 18rem;
+}
