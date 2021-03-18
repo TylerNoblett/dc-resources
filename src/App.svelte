@@ -7,16 +7,41 @@
   //{"type": "dinner", "regularity": "2nd Tue of the month", "name": "Miriam's Kitchen (Dinner)", "quadrant": "SE", "ward": 6, "days":["Mon", "Wed", "Fri"]},
   //{"type": "groceries", "regularity": "weekly", "name": "Spanish Catholic Center", "quadrant": "SW", "ward": 1,  "days":["Fri"]}
 	//]
+	let data = [];
 	let displayData = [];
 	let JSONifiedData;
+
+	const dayMap ={
+				'sun': "Sun",
+				'm': "Mon", 
+				't': "Tues",
+				'w': "Wed", 
+				'th': "Thurs",
+				'f': "Fri",
+				'sat': "Sat"
+	}
+	const dayKeys = Object.keys(dayMap);
+	const baseName = "gsx$";
+
 	onMount(async () => {
 		console.log("HERE")
 		const res = await fetch('https://spreadsheets.google.com/feeds/list/1FF3R6I3sbzWukdiBP9U6XYO1qXthMer8Lz0GObAyKsc/od6/public/values?alt=json');
 		JSONifiedData = await res.json();
-		displayData = JSONifiedData.feed.entry.map(entry => {
+		data = JSONifiedData.feed.entry.map(entry => {
+			//caculate days
+			
+			days = dayKeys.map(day => {
+				const att = baseName + day
+				if (!!entry[att].$t) { return dayMap[day] }
+				else return;
+			})
+
+			days = days.filter(day => day)
+
 			return { 
 				name: entry.gsx$name.$t,
 				type: entry.gsx$type.$t,
+				days: days,
 				start: entry.gsx$start.$t,
 				end: entry.gsx$end.$t,
 				regularity: entry.gsx$regularity.$t,
@@ -32,10 +57,12 @@
 				//notes: entry.gsx$notese.gquality.$t
 			}
 		});
+		displayData = data;
 	});
   
 	
-	displayData = displayData;
+	
+	// displayData = displayData;
   
 let types = ['all'];
 let regularity = ['all'];
@@ -45,10 +72,11 @@ let days = ['all'];
 
 let typeOptions = [
 	'all',
-  'groceries',
-  'dinner',
-  'breakfast',
-	'delivery'
+  'Groceries',
+	'Dinner',
+	'Lunch',
+  'Breakfast',
+	'Delivery'
 ];
 
 const regularityOptions = [
@@ -89,7 +117,7 @@ const dayOptions =[
 ]
 
 function join(types, regularity, quadrants, wards, days) {
-    displayData = data
+	displayData = data
       .filter(item => {
 								if(types.includes('all')){return item}
                 if(types.includes(item.type)){return item}
@@ -163,17 +191,21 @@ function join(types, regularity, quadrants, wards, days) {
 <h1>
 	Results
 </h1>
-<h3>{displayData.length ? displayData[0].name: "something else"}</h3>
-<ul>
-	{#each displayData as datum}
-	<li>{datum.name}</li>
-	<p>{datum.type}</p>
-	<p>{datum.regularity}</p>
-<!-- 		{#each datum.dates as date} -->
-	<p>{datum.days}</p>
-<!-- 		{/each} -->
-	<p>{datum.quadrant} DC</p>
-	<p>Ward {datum.ward}</p>
-{/each}
-</ul>
+{#if data.length}
+	<ul>
+		{#each displayData as datum}
+		<li>{datum.name}</li>
+		<p>{datum.type}</p>
+		<p>{datum.regularity}</p>
+	<!-- 		{#each datum.dates as date} -->
+		<p>{datum.days}</p>
+	<!-- 		{/each} -->
+		<p>{datum.quadrant} DC</p>
+		<p>Ward {datum.ward}</p>
+	{/each}
+	</ul>
+{:else}
+	<p>No Results</p>
+{/if}
+
 
