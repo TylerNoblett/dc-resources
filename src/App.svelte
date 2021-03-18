@@ -200,17 +200,28 @@ function join(types, regularity, quadrants, wards, days) {
 		{#each displayData as datum}
 		<h3>{datum.name}</h3>
 		<div class="resource">
-			<p>📆 {datum.regularity} {datum.type} - {datum.days}</p>
+			<p>📆 {datum.regularity} {datum.type} ({datum.days})</p>
 			<p></p>
 		<!-- 		{#each datum.dates as date} -->
 			<p></p>
 		<!-- 		{/each} -->
-			<p>🗺 {datum.quadrant} DC - Ward {datum.ward}</p>
-			<p>🏢 {datum.location}</p>
-			<p>❓ {datum.region} </p>
+			{#if datum.ward}
+				<p>🗺 {datum.quadrant} DC - Ward {datum.ward}</p>
+			{:else}
+				<p>🗺 {datum.quadrant} DC</p>
+			{/if}
+			{#if datum.region}
+				<p>🏢 {datum.location} ({datum.region})</p>
+			{:else}
+				<p>🏢 {datum.location}</p>
+			{/if}
 			<!-- only show restrcitnos and eligibility if not noo -->
-			<p>🚫 Restrictions? {datum.restrictions} - {datum.eligibility}</p>
-			<p>📞 {datum.website} {datum.contact} {datum.contact2}</p>
+			{#if datum.restrictions === 'yes'}
+				<p>🚫 Restrictions? {datum.eligibility}</p>
+			{/if}
+			{#if datum.website || datum.contact || datum.contact2}
+				<p>📞 {datum.website} {datum.contact} {datum.contact2}</p>
+			{/if}
 		</div>
 	{/each}
 	</ul>
