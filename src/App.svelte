@@ -52,7 +52,7 @@
 				end: entry.gsx$end.$t,
 				regularity: capitalizeFirstLetter(entry.gsx$regularity.$t),
 				quadrant: entry.gsx$quadrant.$t,
-				ward: entry.gsx$ward.$t,
+				ward: +entry.gsx$ward.$t,
 				region: entry.gsx$region.$t,
 				location: entry.gsx$location.$t,
 				restrictions: entry.gsx$restrictions.$t,
