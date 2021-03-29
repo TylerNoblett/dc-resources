@@ -199,10 +199,13 @@ function join(types, regularity, quadrants, wards, days) {
 			{:else}
 				<p>📆 {datum.regularity} {datum.type} ({datum.days})</p>
 			{/if}
-			<p></p>
-		<!-- 		{#each datum.dates as date} -->
-			<p></p>
-		<!-- 		{/each} -->
+			{#if datum.start && datum.end}
+				<p>🕒 {datum.start} to {datum.end}</p>
+			{:else if datum.start && !datum.end}
+				<p>🕒 Starts at {datum.start}</p>
+			{:else if !datum.start && datum.end}
+				<p>🕒 Ends at {datum.end}</p>
+			{/if}
 			{#if datum.ward}
 				<p>🏛 {datum.quadrant} DC - Ward {datum.ward}</p>
 			{:else}
