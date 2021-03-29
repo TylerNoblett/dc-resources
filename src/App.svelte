@@ -153,11 +153,7 @@ function join(types, regularity, quadrants, wards, days) {
 
 <div id="inner">
 <h1 class="centered">DC Resources</h1>
-<select multiple 
-	bind:value={types} 
-	on:click={join(types, regularity, quadrants, wards, days)}
-	on:touchstart={join(types, regularity, quadrants, wards, days)}
->
+<select multiple bind:value={types} on:click={join(types, regularity, quadrants, wards, days)}>
 {#each typeOptions as type}
   <option selected value={type}>
     {type}
@@ -165,11 +161,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<select multiple 
-	bind:value={regularity} 
-	on:click={join(types, regularity, quadrants, wards, days)}
-	on:touchstart={join(types, regularity, quadrants, wards, days)}
->
+<select multiple bind:value={regularity} on:click={join(types, regularity, quadrants, wards, days)}>
 {#each regularityOptions as time}
   <option selected value={time}>
     {time}
