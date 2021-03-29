@@ -63,11 +63,17 @@ button:focus {
 }
 
 h3 {
+	margin-top: 
 	/* margin-left: -20px; */
 }
 
 select {
 	width: 100%;
+}
+
+.no-marg{
+	margin-top: 0rem;
+	margin-bottom: 0rem;
 }
 
 .resource {

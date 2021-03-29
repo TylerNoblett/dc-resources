@@ -1,12 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
 
-	//let data = [
-  //{"type": "breakfast", "regularity": "weekly", "name": "National Community Church", "quadrant": "NW", "ward": 3, "days":["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"]},
-  //{"type": "breakfast", "regularity": "1st and 3rd Sat of the month", "name": "Miriam's Kitchen (Breakfast)", "quadrant": "SE", "ward": 4, "days":["Mon", "Tues", "Wed", "Thurs", "Fri"]},
-  //{"type": "dinner", "regularity": "2nd Tue of the month", "name": "Miriam's Kitchen (Dinner)", "quadrant": "SE", "ward": 6, "days":["Mon", "Wed", "Fri"]},
-  //{"type": "groceries", "regularity": "weekly", "name": "Spanish Catholic Center", "quadrant": "SW", "ward": 1,  "days":["Fri"]}
-	//]
 	let data = [];
 	let displayData = [];
 	let JSONifiedData;
@@ -153,7 +147,7 @@ function join(types, regularity, quadrants, wards, days) {
 
 <div id="inner">
 <h1 class="centered">DC Resources</h1>
-<h3>Meal Type</h3>
+<h3 class="no-marg">Meal Type</h3>
 <select multiple bind:value={types} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each typeOptions as type}
   <option selected value={type}>
@@ -162,7 +156,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<h3>Frequency</h3>
+<h3 class="no-marg">Frequency</h3>
 <select multiple bind:value={regularity} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each regularityOptions as time}
   <option selected value={time}>
@@ -171,7 +165,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<h3>Day of the Week</h3>
+<h3 class="no-marg">Day of the Week</h3>
 <select multiple bind:value={days} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each dayOptions as day}
   <option value={day}>
@@ -180,7 +174,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<h3>Quadrant</h3>
+<h3 class="no-marg">Quadrant</h3>
 <select multiple bind:value={quadrants} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each quadrantOptions as quad}
   <option value={quad}>
@@ -189,7 +183,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<h3>Ward</h3>
+<h3 class="no-marg">Ward</h3>
 <select multiple bind:value={wards} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each wardOptions as ward}
   <option value={ward}>
