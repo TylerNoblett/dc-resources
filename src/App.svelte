@@ -193,45 +193,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-{#if data.length}
-	<ul>
-		{#each displayData as datum}
-		<h3>{datum.name}</h3>
-		<div class="resource">
-			{#if datum.regularity[0] >= '0' && datum.regularity[0] <= '9'}
-				<p>📆 {datum.regularity} {datum.type}</p>
-			{:else}
-				<p>📆 {datum.regularity} {datum.type} ({datum.days})</p>
-			{/if}
-			{#if datum.start && datum.end}
-				<p>🕒 {datum.start} to {datum.end}</p>
-			{:else if datum.start && !datum.end}
-				<p>🕒 Starts at {datum.start}</p>
-			{:else if !datum.start && datum.end}
-				<p>🕒 Ends at {datum.end}</p>
-			{/if}
-			{#if datum.ward}
-				<p>🏛 {datum.quadrant} DC - Ward {datum.ward}</p>
-			{:else}
-				<p>🏛 {datum.quadrant} DC</p>
-			{/if}
-			{#if datum.region}
-				<p>🏢 {datum.location} ({datum.region})</p>
-			{:else}
-				<p>🏢 {datum.location}</p>
-			{/if}
-			<!-- only show restrcitnos and eligibility if not noo -->
-			{#if datum.restrictions === 'yes'}
-				<p>🚫 Restrictions? {datum.eligibility}</p>
-			{/if}
-			{#if datum.website || datum.contact || datum.contact2}
-				<p>📞 {datum.website} {datum.contact} {datum.contact2}</p>
-			{/if}
-		</div>
-	{/each}
-	</ul>
-{:else}
-	<p>No Results</p>
-{/if}
+{join(types, regularity, quadrants, wards, days)}
+
 </div>
 
