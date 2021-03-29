@@ -153,6 +153,7 @@ function join(types, regularity, quadrants, wards, days) {
 
 <div id="inner">
 <h1 class="centered">DC Resources</h1>
+<h3>Meal Type</h3>
 <select multiple bind:value={types} on:blur={join(types, regularity, quadrants, wards, days)}>
 {#each typeOptions as type}
   <option selected value={type}>
@@ -161,6 +162,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
+<h3>Frequency</h3>
 <select multiple bind:value={regularity} on:blur={join(types, regularity, quadrants, wards, days)}>
 {#each regularityOptions as time}
   <option selected value={time}>
@@ -169,6 +171,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
+<h3>Day of the Week</h3>
 <select multiple bind:value={days} on:blur={join(types, regularity, quadrants, wards, days)}>
 {#each dayOptions as day}
   <option value={day}>
@@ -177,6 +180,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
+<h3>Quadrant</h3>
 <select multiple bind:value={quadrants} on:blur={join(types, regularity, quadrants, wards, days)}>
 {#each quadrantOptions as quad}
   <option value={quad}>
@@ -185,6 +189,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
+<h3>Ward</h3>
 <select multiple bind:value={wards} on:blur={join(types, regularity, quadrants, wards, days)}>
 {#each wardOptions as ward}
   <option value={ward}>
