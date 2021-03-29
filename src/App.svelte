@@ -153,7 +153,7 @@ function join(types, regularity, quadrants, wards, days) {
 
 <div id="inner">
 <h1 class="centered">DC Resources</h1>
-<select multiple bind:value={types} on:click={join(types, regularity, quadrants, wards, days)}>
+<select multiple bind:value={types} on:select={join(types, regularity, quadrants, wards, days)}>
 {#each typeOptions as type}
   <option selected value={type}>
     {type}
@@ -161,7 +161,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<select multiple bind:value={regularity} on:click={join(types, regularity, quadrants, wards, days)}>
+<select multiple bind:value={regularity} on:select={join(types, regularity, quadrants, wards, days)}>
 {#each regularityOptions as time}
   <option selected value={time}>
     {time}
@@ -169,7 +169,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<select multiple bind:value={days} on:click={join(types, regularity, quadrants, wards, days)}>
+<select multiple bind:value={days} on:select={join(types, regularity, quadrants, wards, days)}>
 {#each dayOptions as day}
   <option value={day}>
     {day}
@@ -177,7 +177,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<select multiple bind:value={quadrants} on:click={join(types, regularity, quadrants, wards, days)}>
+<select multiple bind:value={quadrants} on:select={join(types, regularity, quadrants, wards, days)}>
 {#each quadrantOptions as quad}
   <option value={quad}>
     {quad}
@@ -185,7 +185,7 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-<select multiple bind:value={wards} on:click={join(types, regularity, quadrants, wards, days)}>
+<select multiple bind:value={wards} on:select={join(types, regularity, quadrants, wards, days)}>
 {#each wardOptions as ward}
   <option value={ward}>
     {ward}
@@ -193,7 +193,45 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-{join(types, regularity, quadrants, wards, days)}
-
+{#if data.length}
+	<ul>
+		{#each displayData as datum}
+		<h3>{datum.name}</h3>
+		<div class="resource">
+			{#if datum.regularity[0] >= '0' && datum.regularity[0] <= '9'}
+				<p>📆 {datum.regularity} {datum.type}</p>
+			{:else}
+				<p>📆 {datum.regularity} {datum.type} ({datum.days})</p>
+			{/if}
+			{#if datum.start && datum.end}
+				<p>🕒 {datum.start} to {datum.end}</p>
+			{:else if datum.start && !datum.end}
+				<p>🕒 Starts at {datum.start}</p>
+			{:else if !datum.start && datum.end}
+				<p>🕒 Ends at {datum.end}</p>
+			{/if}
+			{#if datum.ward}
+				<p>🏛 {datum.quadrant} DC - Ward {datum.ward}</p>
+			{:else}
+				<p>🏛 {datum.quadrant} DC</p>
+			{/if}
+			{#if datum.region}
+				<p>🏢 {datum.location} ({datum.region})</p>
+			{:else}
+				<p>🏢 {datum.location}</p>
+			{/if}
+			<!-- only show restrcitnos and eligibility if not noo -->
+			{#if datum.restrictions === 'yes'}
+				<p>🚫 Restrictions? {datum.eligibility}</p>
+			{/if}
+			{#if datum.website || datum.contact || datum.contact2}
+				<p>📞 {datum.website} {datum.contact} {datum.contact2}</p>
+			{/if}
+		</div>
+	{/each}
+	</ul>
+{:else}
+	<p>No Results</p>
+{/if}
 </div>
 
