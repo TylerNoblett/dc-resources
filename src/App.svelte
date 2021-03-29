@@ -33,18 +33,21 @@
 		data = JSONifiedData.feed.entry.map(entry => {
 			//caculate days
 			
-			days = dayKeys.map(day => {
+			let entryDays = dayKeys.map(day => {
 				const att = baseName + day
-				if (!!entry[att].$t) { return dayMap[day] }
-				else return;
+				if (!!entry[att].$t) { 
+					return dayMap[day] 
+				}
 			})
 
-			days = days.filter(day => day)
+			
+
+			entryDays = entryDays.filter(day => day)
 
 			return { 
 				name: entry.gsx$name.$t,
 				type: entry.gsx$type.$t,
-				days: days,
+				days: entryDays,
 				start: entry.gsx$start.$t,
 				end: entry.gsx$end.$t,
 				regularity: capitalizeFirstLetter(entry.gsx$regularity.$t),
@@ -119,6 +122,8 @@ const dayOptions =[
 	"Sun"
 ]
 
+
+
 function join(types, regularity, quadrants, wards, days) {
 	displayData = data
       .filter(item => {
@@ -138,10 +143,9 @@ function join(types, regularity, quadrants, wards, days) {
                 if(wards.includes(item.ward)){return item}
 		})
 	.filter(item => {
-					const sharedDates = days.map(day => item.days.find(d => d === day))
+		const sharedDates = days.map(day => item.days.find(d => d === day))
 								if(days.includes('All')){return item}
-								// fix this hack
-                if(sharedDates[0] !== undefined){return item}
+               if(sharedDates[0] !== undefined){return item}
 		})
 }
 
@@ -164,6 +168,9 @@ function join(types, regularity, quadrants, wards, days) {
   </option>
 {/each}
 </select>
+
+{console.log("dayOptions", dayOptions)}
+{console.log("days", days)}
 
 <select multiple bind:value={days} on:click={join(types, regularity, quadrants, wards, days)}>
 {#each dayOptions as day}
