@@ -32,12 +32,9 @@
 				if (!!entry[att].$t) { 
 					return dayMap[day] 
 				}
-			})
-
-			
+			});
 
 			entryDays = entryDays.filter(day => day)
-
 			return { 
 				name: entry.gsx$name.$t,
 				type: entry.gsx$type.$t,
@@ -60,15 +57,11 @@
 		displayData = data;
 	});
   
-	
-	
-	// displayData = displayData;
-  
-let types = ['All'];
-let regularity = ['All'];
-let quadrants = ['All'];
-let wards = ['All'];
-let days = ['All'];
+let types = 'All';
+let regularity = 'All';
+let quadrants = 'All';
+let wards = 'All';
+let days = 'All';
 
 let typeOptions = [
 	'All',
@@ -121,25 +114,24 @@ const dayOptions =[
 function join(types, regularity, quadrants, wards, days) {
 	displayData = data
       .filter(item => {
-								if(types.includes('All')){return item}
-                if(types.includes(item.type)){return item}
+								if(types === 'All'){return item}
+                if(types === item.type){return item}
     		})
 			.filter(item => {
-								if(regularity.includes('All')){return item}
-                if(regularity.includes(item.regularity)){return item}
+								if(regularity === 'All'){return item}
+                if(regularity === item.regularity){return item}
 		})
 		.filter(item => {
-								if(quadrants.includes('All')){return item}
-                if(quadrants.includes(item.quadrant)){return item}
+								if(quadrants === 'All'){return item}
+                if(quadrants === item.quadrant){return item}
 		})
 	.filter(item => {
-								if(wards.includes('All')){return item}
-                if(wards.includes(item.ward)){return item}
+								if(wards === 'All'){return item}
+                if(wards === item.ward){return item}
 		})
 	.filter(item => {
-		const sharedDates = days.map(day => item.days.find(d => d === day))
-								if(days.includes('All')){return item}
-               if(sharedDates[0] !== undefined){return item}
+								if(days === 'All'){return item}
+               if(item.days.includes(days)){return item}
 		})
 }
 
@@ -148,7 +140,7 @@ function join(types, regularity, quadrants, wards, days) {
 <div id="inner">
 <h1 class="centered">DC Resources</h1>
 <h3 class="no-marg">Meal Type</h3>
-<select multiple bind:value={types} on:change={join(types, regularity, quadrants, wards, days)}>
+<select bind:value={types} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each typeOptions as type}
   <option selected value={type}>
     {type}
@@ -157,7 +149,7 @@ function join(types, regularity, quadrants, wards, days) {
 </select>
 
 <h3 class="no-marg">Frequency</h3>
-<select multiple bind:value={regularity} on:change={join(types, regularity, quadrants, wards, days)}>
+<select bind:value={regularity} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each regularityOptions as time}
   <option selected value={time}>
     {time}
@@ -166,7 +158,7 @@ function join(types, regularity, quadrants, wards, days) {
 </select>
 
 <h3 class="no-marg">Day of the Week</h3>
-<select multiple bind:value={days} on:change={join(types, regularity, quadrants, wards, days)}>
+<select bind:value={days} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each dayOptions as day}
   <option value={day}>
     {day}
@@ -175,7 +167,7 @@ function join(types, regularity, quadrants, wards, days) {
 </select>
 
 <h3 class="no-marg">Quadrant</h3>
-<select multiple bind:value={quadrants} on:change={join(types, regularity, quadrants, wards, days)}>
+<select bind:value={quadrants} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each quadrantOptions as quad}
   <option value={quad}>
     {quad}
@@ -184,7 +176,7 @@ function join(types, regularity, quadrants, wards, days) {
 </select>
 
 <h3 class="no-marg">Ward</h3>
-<select multiple bind:value={wards} on:change={join(types, regularity, quadrants, wards, days)}>
+<select bind:value={wards} on:change={join(types, regularity, quadrants, wards, days)}>
 {#each wardOptions as ward}
   <option value={ward}>
     {ward}
