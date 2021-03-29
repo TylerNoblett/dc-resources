@@ -169,9 +169,6 @@ function join(types, regularity, quadrants, wards, days) {
 {/each}
 </select>
 
-{console.log("dayOptions", dayOptions)}
-{console.log("days", days)}
-
 <select multiple bind:value={days} on:click={join(types, regularity, quadrants, wards, days)}>
 {#each dayOptions as day}
   <option value={day}>
