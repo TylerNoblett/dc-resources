@@ -148,7 +148,7 @@ function join(types, regularity, quadrants, wards, days) {
 </script>
 
 <div id="inner">
-<h1 class="centered">DC Resources 🇺🇸</h1>
+<h1 class="centered">DC Resources</h1>
 <select multiple bind:value={types} on:click={join(types, regularity, quadrants, wards, days)}>
 {#each typeOptions as type}
   <option selected value={type}>
