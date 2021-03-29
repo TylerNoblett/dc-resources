@@ -66,11 +66,16 @@ h3 {
 	/* margin-left: -20px; */
 }
 
+select {
+	width: 100%;
+}
+
 .resource {
 	background-color: #F4F8FE;
 	margin-right: 4rem;
 	/*width: 18rem;*/
 }
+
 
 .centered {
   text-align: center;
