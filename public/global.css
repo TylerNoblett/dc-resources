@@ -63,10 +63,28 @@ button:focus {
 }
 
 h3 {
-	margin-left: -20px;
+	/* margin-left: -20px; */
 }
 
 .resource {
 	background-color: #F4F8FE;
-	width: 18rem;
+	margin-right: 4rem;
+	/*width: 18rem;*/
+}
+
+.centered {
+  text-align: center;
+}
+
+#inner {
+  /*width: 80%;*/
+  margin: auto;
+}
+
+@media screen and (min-width: 601px) {
+
+}
+
+@media screen and (max-width: 600px) {
+
 }

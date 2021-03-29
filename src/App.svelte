@@ -28,8 +28,7 @@
 }
 
 	onMount(async () => {
-		console.log("HERE")
-		const res = await fetch('https://spreadsheets.google.com/feeds/list/1FF3R6I3sbzWukdiBP9U6XYO1qXthMer8Lz0GObAyKsc/od6/public/values?alt=json');
+		const res = await fetch('https://spreadsheets.google.com/feeds/list/1e022V6e8t_YLS_6tkaDjSQMihlt3nGu1flr887wIBWg/od6/public/values?alt=json');
 		JSONifiedData = await res.json();
 		data = JSONifiedData.feed.entry.map(entry => {
 			//caculate days
@@ -148,8 +147,8 @@ function join(types, regularity, quadrants, wards, days) {
 
 </script>
 
-
-<h1>DC Resources 🇺🇸</h1>
+<div id="inner">
+<h1 class="centered">DC Resources 🇺🇸</h1>
 <select multiple bind:value={types} on:click={join(types, regularity, quadrants, wards, days)}>
 {#each typeOptions as type}
   <option selected value={type}>
@@ -227,5 +226,5 @@ function join(types, regularity, quadrants, wards, days) {
 {:else}
 	<p>No Results</p>
 {/if}
-
+</div>
 
